@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BLOG — SAVANNA MYTHS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Lato:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:        #0F2318;
+      --panel:     #1A3A2A;
+      --panel2:    #224030;
+      --green:     #2D6A4F;
+      --amber:     #E8A020;
+      --amber2:    #F5C842;
+      --cream:     #F5E6C8;
+      --terra:     #C1440E;
+      --text:      #F0E8D0;
+      --muted:     #A8C4A0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Lato', 'Noto Sans JP', sans-serif;
+      line-height: 1.7;
+    }
+
+    .geo-pattern {
+      background-image:
+        repeating-linear-gradient(60deg, transparent, transparent 18px, rgba(232,160,32,0.10) 18px, rgba(232,160,32,0.10) 20px),
+        repeating-linear-gradient(-60deg, transparent, transparent 18px, rgba(232,160,32,0.10) 18px, rgba(232,160,32,0.10) 20px),
+        repeating-linear-gradient(0deg, transparent, transparent 34px, rgba(45,106,79,0.18) 34px, rgba(45,106,79,0.18) 36px);
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--panel);
+      border-bottom: 3px solid var(--amber);
+      position: relative;
+      overflow: hidden;
+    }
+    .header-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 32px 24px 28px;
+      position: relative;
+      z-index: 2;
+    }
+    .site-eyebrow {
+      font-family: 'Righteous', sans-serif;
+      font-size: 11px;
+      letter-spacing: 4px;
+      color: var(--amber);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .site-title {
+      font-family: 'Righteous', sans-serif;
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      color: var(--amber);
+      line-height: 1.1;
+      letter-spacing: 2px;
+      text-shadow: 3px 3px 0 rgba(0,0,0,0.4);
+    }
+    .site-title span { color: var(--cream); }
+    .site-tagline { margin-top: 10px; font-size: 0.95rem; color: var(--muted); }
+    .header-deco {
+      position: absolute; right: -30px; top: -30px;
+      width: 200px; height: 200px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,160,32,0.18) 0%, transparent 70%);
+      z-index: 1;
+    }
+
+    /* ── NAV ── */
+    nav { background: var(--bg); border-bottom: 2px solid var(--green); }
+    .nav-inner {
+      max-width: 1000px; margin: 0 auto; padding: 0 24px;
+      display: flex; gap: 4px; flex-wrap: wrap;
+    }
+    nav a {
+      display: inline-block; padding: 14px 20px;
+      color: var(--cream); text-decoration: none;
+      font-family: 'Righteous', sans-serif; font-size: 0.92rem;
+      letter-spacing: 1px; transition: color 0.2s, background 0.2s;
+      border-bottom: 3px solid transparent;
+    }
+    nav a:hover, nav a.active { color: var(--amber); border-bottom-color: var(--amber); }
+
+    /* ── PAGE TITLE ── */
+    .page-hero {
+      background: linear-gradient(135deg, var(--panel) 0%, #0d2015 100%);
+      padding: 40px 24px;
+      border-bottom: 1px solid var(--green);
+    }
+    .page-hero-inner {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .page-label {
+      display: inline-block;
+      background: var(--terra);
+      color: #fff;
+      font-family: 'Righteous', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      padding: 4px 14px;
+      border-radius: 2px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+    .page-hero h1 {
+      font-family: 'Righteous', sans-serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      color: var(--cream);
+      margin-bottom: 10px;
+    }
+    .page-hero p {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    /* ── LAYOUT ── */
+    .content-wrap {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 48px 24px;
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      gap: 40px;
+      align-items: start;
+    }
+
+    /* ── FEED ── */
+    .feed { display: flex; flex-direction: column; gap: 0; }
+
+    /* 年月ヘッダー */
+    .month-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 32px 0 20px;
+    }
+    .month-divider:first-child { margin-top: 0; }
+    .month-label {
+      font-family: 'Righteous', sans-serif;
+      font-size: 0.82rem;
+      letter-spacing: 3px;
+      color: var(--amber);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .month-line {
+      flex: 1;
+      height: 1px;
+      background: var(--green);
+    }
+
+    /* タイムライン */
+    .timeline {
+      position: relative;
+      padding-left: 28px;
+      border-left: 2px solid var(--green);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .entry {
+      position: relative;
+      padding: 0 0 28px 20px;
+    }
+
+    /* ドット */
+    .entry::before {
+      content: '';
+      position: absolute;
+      left: -7px;
+      top: 6px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--green);
+      border: 2px solid var(--amber);
+      transition: background 0.2s;
+    }
+    .entry:hover::before {
+      background: var(--amber);
+    }
+
+    .entry-inner {
+      background: var(--panel);
+      border: 1px solid var(--green);
+      border-radius: 4px;
+      padding: 18px 20px;
+      transition: border-color 0.2s;
+    }
+    .entry:hover .entry-inner {
+      border-color: var(--amber);
+    }
+
+    .entry-date {
+      font-family: 'Righteous', sans-serif;
+      font-size: 0.78rem;
+      color: var(--amber);
+      letter-spacing: 1.5px;
+      margin-bottom: 10px;
+    }
+
+    .entry-tag {
+      display: inline-block;
+      background: var(--green);
+      color: var(--amber2);
+      font-size: 0.72rem;
+      padding: 2px 10px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      font-family: 'Righteous', sans-serif;
+      letter-spacing: 1px;
+    }
+
+    .entry-body {
+      font-size: 0.93rem;
+      color: var(--text);
+      line-height: 1.75;
+    }
+
+    .entry-body p + p {
+      margin-top: 10px;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar { display: flex; flex-direction: column; gap: 24px; }
+
+    .side-card {
+      background: var(--panel);
+      border: 1px solid var(--green);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .side-card-header {
+      background: var(--green);
+      padding: 10px 16px;
+      font-family: 'Righteous', sans-serif;
+      font-size: 0.82rem;
+      letter-spacing: 2px;
+      color: var(--amber);
+      text-transform: uppercase;
+    }
+
+    .side-card-body { padding: 16px; }
+
+    /* タグリスト */
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tag-btn {
+      background: var(--panel2);
+      border: 1px solid var(--green);
+      color: var(--muted);
+      font-size: 0.78rem;
+      padding: 4px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-family: 'Righteous', sans-serif;
+      letter-spacing: 1px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .tag-btn:hover, .tag-btn.active {
+      border-color: var(--amber);
+      color: var(--amber);
+    }
+
+    /* 統計 */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .stat-item {
+      text-align: center;
+      background: var(--panel2);
+      border-radius: 3px;
+      padding: 12px 8px;
+    }
+    .stat-num {
+      font-family: 'Righteous', sans-serif;
+      font-size: 1.6rem;
+      color: var(--amber);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--panel);
+      border-top: 2px solid var(--green);
+      padding: 32px 24px;
+      text-align: center;
+    }
+    .footer-inner { max-width: 1000px; margin: 0 auto; }
+    .footer-title { font-family: 'Righteous', sans-serif; color: var(--amber); font-size: 1.1rem; margin-bottom: 8px; }
+    .footer-nav { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
+    .footer-nav a { color: var(--muted); text-decoration: none; font-size: 0.87rem; transition: color 0.2s; }
+    .footer-nav a:hover { color: var(--amber); }
+    .footer-copy { color: var(--green); font-size: 0.8rem; }
+
+    @media (max-width: 720px) {
+      .content-wrap { grid-template-columns: 1fr; }
+      .sidebar { order: -1; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="geo-pattern">
+  <div class="header-deco"></div>
+  <div class="header-inner">
+    <div class="site-eyebrow">🌍 African Mythology Fan Site</div>
+    <div class="site-title">SAVANNA<span> MYTHS</span></div>
+    <div class="site-tagline">アフリカの神々と物語を巡る旅 🦁</div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html">🏠 HOME</a>
+    <a href="blog.html" class="active">📖 BLOG</a>
+    <a href="gallery.html">🎨 GALLERY</a>
+    <a href="about.html">🌿 ABOUT</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-label">📖 Study Log</div>
+    <h1>学習ログ</h1>
+    <p>アフリカ神話を調べて気になったこと、読んだ本のメモ、思ったことなど。</p>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<div class="content-wrap">
+
+  <!-- FEED -->
+  <main class="feed">
+
+    <!-- 2025年6月 -->
+    <div class="month-divider">
+      <span class="month-label">🌿 2025 June</span>
+      <div class="month-line"></div>
+    </div>
+
+    <div class="timeline">
+
+      <div class="entry">
+        <div class="entry-inner">
+          <div class="entry-date">2025.06.14</div>
+          <span class="entry-tag">ヨルバ神話</span>
+          <div class="entry-body">
+            <p>オリシャの「アシェ」という概念が面白い。神聖な力というか、宇宙に流れるエネルギーのことで、儀式や祈りを通じて人間もそれにアクセスできるという考え方。日本の「気」とか「マナ」に近い感じがする。</p>
+            <p>シャンゴはそのアシェが特に強い神で、だから嵐も起こせるし王権とも結びついているのか、と繋がった気がした。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-inner">
+          <div class="entry-date">2025.06.10</div>
+          <span class="entry-tag">ヨルバ神話</span>
+          <div class="entry-body">
+            <p>シャンゴの双頭の斧「オシェ」について調べた。頭が二つある斧のデザインが独特で、これは稲妻が二方向に走る様子を表しているらしい。</p>
+            <p>妻が三人いる（オヤ、オシュン、オバ）という話も複雑で面白い。特にオヤは嵐と死者の神でもあって、シャンゴとのカップルが「雷と嵐」の組み合わせになるの、かっこいい。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-inner">
+          <div class="entry-date">2025.06.05</div>
+          <span class="entry-tag">バントゥー神話</span>
+          <div class="entry-body">
+            <p>アフリカの創世神話の比較記事をいくつか読んだ。西アフリカと南アフリカで神話の構造が全然違う。西アフリカ系は「神が世界を作った」という語り口が多いけど、バントゥー系は「最初から世界はあって、人間が地下から出てきた」という話が多いみたい。</p>
+            <p>地下から人間が這い出てくるイメージ、漫画のシーンとして描いたら絶対映えると思った。</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 2025年5月 -->
+    <div class="month-divider">
+      <span class="month-label">🌿 2025 May</span>
+      <div class="month-line"></div>
+    </div>
+
+    <div class="timeline">
+
+      <div class="entry">
+        <div class="entry-inner">
+          <div class="entry-date">2025.05.28</div>
+          <span class="entry-tag">アナンシ</span>
+          <div class="entry-body">
+            <p>アナンシがなぜトリックスターなのか、やっと腑に落ちた。蜘蛛というのは小さくて、力では誰にも勝てない。でも巣を張って、相手を誘い込んで、知恵で世界を動かす。強くない者が「仕組み」で勝つ、というモチーフが痛快。</p>
+            <p>アシャンティの神話では、アナンシが「すべての物語」を空の神オニャンコポンから買い取ったとされる。つまりアナンシは語り部の神でもある。物語を所有するって概念が斬新だった。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-inner">
+          <div class="entry-date">2025.05.21</div>
+          <span class="entry-tag">エジプト神話</span>
+          <div class="entry-body">
+            <p>ホルスとセトの争いを改めてちゃんと読んだ。単純な善悪じゃなくて、秩序（マアト）と混沌（イスフェト）のバランスという視点で見ると全然違う解釈になる。セトは悪者ではなくて、混沌の力の体現者として宇宙に必要な存在、という見方があるらしい。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-inner">
+          <div class="entry-date">2025.05.14</div>
+          <span class="entry-tag">ズールー神話</span>
+          <div class="entry-body">
+            <p>ズールーの最高神「ウンクルンクル」について調べ始めた。「偉大なる偉大なるもの」という意味で、もともとは葦の茂みから人間を生み出したという創世神。でも面白いのは、ウンクルンクルは世界を作ったあと人間に関与しない、という「デウス・オティオスス」（怠惰な神）的な性格を持っているところ。</p>
+            <p>作った後は関知しない神、というのが日本神話の神々とは全然違う距離感で印象的だった。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="entry-inner">
+          <div class="entry-date">2025.05.07</div>
+          <span class="entry-tag">全般</span>
+          <div class="entry-body">
+            <p>アフリカ神話の勉強を始めることにした。きっかけはたまたま読んだ記事でヨルバ神話のオリシャの話が出てきて、全然知らない世界だということに気づいたから。</p>
+            <p>ギリシャ神話やノルド神話に比べて日本語の資料が少なくて、英語の文献を読むことも増えそう。せっかくだから英語の勉強も兼ねて続けていきたい。</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="side-card">
+      <div class="side-card-header">✦ Tags</div>
+      <div class="side-card-body">
+        <div class="tag-list">
+          <button class="tag-btn active">すべて</button>
+          <button class="tag-btn">ヨルバ神話</button>
+          <button class="tag-btn">バントゥー神話</button>
+          <button class="tag-btn">エジプト神話</button>
+          <button class="tag-btn">アナンシ</button>
+          <button class="tag-btn">ズールー神話</button>
+          <button class="tag-btn">全般</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-card">
+      <div class="side-card-header">✦ Stats</div>
+      <div class="side-card-body">
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-num">9</div>
+            <div class="stat-label">エントリー</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">5</div>
+            <div class="stat-label">タグ</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">2</div>
+            <div class="stat-label">ヶ月目</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">🌍</div>
+            <div class="stat-label">勉強中</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-card">
+      <div class="side-card-header">✦ 参考にしてるもの</div>
+      <div class="side-card-body" style="font-size:0.85rem; color:var(--muted); line-height:1.8;">
+        <p>📚 英語の神話事典</p>
+        <p>🎧 Mythology Podcastなど</p>
+        <p>🌐 各神話の英語Wikipedia</p>
+        <p>📖 図書館の民俗学コーナー</p>
+      </div>
+    </div>
+
+  </aside>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-title">🌍 SAVANNA MYTHS</div>
+    <div class="footer-nav">
+      <a href="index.html">HOME</a>
+      <a href="blog.html">BLOG</a>
+      <a href="gallery.html">GALLERY</a>
+      <a href="about.html">ABOUT</a>
+    </div>
+    <div class="footer-copy">© 2025 SAVANNA MYTHS — Fan Site / 非公式ファンサイト</div>
+  </div>
+</footer>
+
+</body>
+</html>
