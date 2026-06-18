@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ABOUT — SAVANNA MYTHS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Lato:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #0F2318;
+      --panel:   #1A3A2A;
+      --panel2:  #224030;
+      --green:   #2D6A4F;
+      --amber:   #E8A020;
+      --amber2:  #F5C842;
+      --cream:   #F5E6C8;
+      --terra:   #C1440E;
+      --text:    #F0E8D0;
+      --muted:   #A8C4A0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Lato', 'Noto Sans JP', sans-serif;
+      line-height: 1.7;
+    }
+
+    .geo-pattern {
+      background-image:
+        repeating-linear-gradient(60deg, transparent, transparent 18px, rgba(232,160,32,0.10) 18px, rgba(232,160,32,0.10) 20px),
+        repeating-linear-gradient(-60deg, transparent, transparent 18px, rgba(232,160,32,0.10) 18px, rgba(232,160,32,0.10) 20px),
+        repeating-linear-gradient(0deg, transparent, transparent 34px, rgba(45,106,79,0.18) 34px, rgba(45,106,79,0.18) 36px);
+    }
+
+    /* ── HEADER ── */
+    header { background: var(--panel); border-bottom: 3px solid var(--amber); position: relative; overflow: hidden; }
+    .header-inner { max-width: 1000px; margin: 0 auto; padding: 32px 24px 28px; position: relative; z-index: 2; }
+    .site-eyebrow { font-family: 'Righteous', sans-serif; font-size: 11px; letter-spacing: 4px; color: var(--amber); text-transform: uppercase; margin-bottom: 8px; }
+    .site-title { font-family: 'Righteous', sans-serif; font-size: clamp(2.4rem, 6vw, 4rem); color: var(--amber); line-height: 1.1; letter-spacing: 2px; text-shadow: 3px 3px 0 rgba(0,0,0,0.4); }
+    .site-title span { color: var(--cream); }
+    .site-tagline { margin-top: 10px; font-size: 0.95rem; color: var(--muted); }
+    .header-deco { position: absolute; right: -30px; top: -30px; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(232,160,32,0.18) 0%, transparent 70%); z-index: 1; }
+
+    /* ── NAV ── */
+    nav { background: var(--bg); border-bottom: 2px solid var(--green); }
+    .nav-inner { max-width: 1000px; margin: 0 auto; padding: 0 24px; display: flex; gap: 4px; flex-wrap: wrap; }
+    nav a { display: inline-block; padding: 14px 20px; color: var(--cream); text-decoration: none; font-family: 'Righteous', sans-serif; font-size: 0.92rem; letter-spacing: 1px; transition: color 0.2s; border-bottom: 3px solid transparent; }
+    nav a:hover, nav a.active { color: var(--amber); border-bottom-color: var(--amber); }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      background: linear-gradient(135deg, var(--panel) 0%, #0d2015 100%);
+      padding: 40px 24px;
+      border-bottom: 1px solid var(--green);
+    }
+    .page-hero-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+    .page-label { display: inline-block; background: var(--terra); color: #fff; font-family: 'Righteous', sans-serif; font-size: 0.75rem; letter-spacing: 3px; padding: 4px 14px; border-radius: 2px; margin-bottom: 16px; text-transform: uppercase; }
+    .page-hero h1 { font-family: 'Righteous', sans-serif; font-size: clamp(1.6rem, 4vw, 2.4rem); color: var(--cream); margin-bottom: 10px; }
+    .page-hero p { color: var(--muted); font-size: 0.92rem; }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 660px;
+      margin: 0 auto;
+      padding: 48px 24px 72px;
+    }
+
+    /* セクションラベル */
+    .section-label {
+      font-family: 'Righteous', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 4px;
+      color: var(--amber);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--green);
+      opacity: 0.6;
+    }
+
+    /* ── PROFILE CARD ── */
+    .profile-card {
+      background: var(--panel);
+      border: 1px solid var(--green);
+      border-left: 5px solid var(--amber);
+      border-radius: 4px;
+      padding: 28px 32px;
+      margin-bottom: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 背景の大きな装飾文字 */
+    .profile-deco {
+      position: absolute;
+      right: 20px;
+      top: 10px;
+      font-size: 5rem;
+      opacity: 0.06;
+      line-height: 1;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .profile-name {
+      font-family: 'Righteous', sans-serif;
+      font-size: 1.2rem;
+      color: var(--cream);
+      margin-bottom: 4px;
+    }
+
+    .profile-tag {
+      font-family: 'Righteous', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 2.5px;
+      color: var(--amber);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .profile-body {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+    .profile-body p + p { margin-top: 12px; }
+
+    /* ── LINK GRID ── */
+    .link-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    .link-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--panel);
+      border: 1px solid var(--green);
+      border-radius: 4px;
+      padding: 14px 16px;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .link-card:hover {
+      border-color: var(--amber);
+      transform: translateY(-2px);
+    }
+
+    .link-icon {
+      font-size: 1.3rem;
+      width: 40px;
+      height: 40px;
+      background: var(--panel2);
+      border: 1px solid var(--green);
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .link-text { flex: 1; min-width: 0; }
+    .link-name { display: block; font-family: 'Righteous', sans-serif; font-size: 0.88rem; color: var(--cream); margin-bottom: 2px; }
+    .link-desc { display: block; font-size: 0.72rem; color: var(--muted); }
+
+    .link-arrow { color: var(--green); font-size: 1.1rem; flex-shrink: 0; transition: transform 0.15s, color 0.2s; }
+    .link-card:hover .link-arrow { transform: translateX(3px); color: var(--amber); }
+
+    /* ── CONTACT FORM ── */
+    .form-card {
+      background: var(--panel);
+      border: 1px solid var(--green);
+      border-radius: 4px;
+      padding: 28px 32px;
+    }
+
+    .form-intro {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .form-success {
+      background: rgba(45,106,79,0.25);
+      border: 1px solid var(--green);
+      border-radius: 3px;
+      padding: 12px 16px;
+      color: var(--amber);
+      font-size: 0.88rem;
+      margin-bottom: 16px;
+      display: none;
+      font-family: 'Righteous', sans-serif;
+      letter-spacing: 0.5px;
+    }
+
+    .form-group { margin-bottom: 16px; }
+
+    .form-label {
+      display: block;
+      font-family: 'Righteous', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      color: var(--amber);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .required { color: var(--terra); margin-left: 3px; }
+
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      background: var(--panel2);
+      border: 1px solid var(--green);
+      border-radius: 3px;
+      color: var(--text);
+      font-family: 'Lato', 'Noto Sans JP', sans-serif;
+      font-size: 0.9rem;
+      padding: 10px 14px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-input::placeholder,
+    .form-textarea::placeholder { color: var(--green); opacity: 0.6; }
+    .form-input:focus,
+    .form-textarea:focus {
+      border-color: var(--amber);
+      box-shadow: 0 0 0 3px rgba(232,160,32,0.12);
+    }
+    .form-textarea { resize: vertical; min-height: 130px; }
+
+    .form-submit {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--amber);
+      border: none;
+      border-radius: 3px;
+      color: var(--bg);
+      font-family: 'Righteous', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 1.5px;
+      padding: 11px 28px;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .form-submit:hover { background: var(--amber2); transform: translateY(-1px); }
+    .form-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--panel); border-top: 2px solid var(--green); padding: 32px 24px; text-align: center; }
+    .footer-inner { max-width: 1000px; margin: 0 auto; }
+    .footer-title { font-family: 'Righteous', sans-serif; color: var(--amber); font-size: 1.1rem; margin-bottom: 8px; }
+    .footer-nav { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
+    .footer-nav a { color: var(--muted); text-decoration: none; font-size: 0.87rem; transition: color 0.2s; }
+    .footer-nav a:hover { color: var(--amber); }
+    .footer-copy { color: var(--green); font-size: 0.8rem; }
+
+    @media (max-width: 520px) {
+      .link-grid { grid-template-columns: 1fr; }
+      .profile-card, .form-card { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="geo-pattern">
+  <div class="header-deco"></div>
+  <div class="header-inner">
+    <div class="site-eyebrow">🌍 African Mythology Fan Site</div>
+    <div class="site-title">SAVANNA<span> MYTHS</span></div>
+    <div class="site-tagline">アフリカの神々と物語を巡る旅 🦁</div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html">🏠 HOME</a>
+    <a href="blog.html">📖 BLOG</a>
+    <a href="gallery.html">🎨 GALLERY</a>
+    <a href="about.html" class="active">🌿 ABOUT</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-label">🌿 About</div>
+    <h1>このサイトについて</h1>
+    <p>管理人と SAVANNA MYTHS の紹介ページです。</p>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main>
+
+  <!-- 紹介文 -->
+  <div class="section-label">✦ Profile</div>
+  <div class="profile-card">
+    <div class="profile-deco">🌍</div>
+    <div class="profile-name">SAVANNA MYTHS 管理人</div>
+    <div class="profile-tag">African Mythology Learner &amp; Fan Artist</div>
+    <div class="profile-body">
+      <p>アフリカ神話に興味を持ったのは、ある日たまたま読んだ記事でヨルバ神話のオリシャたちの話が出てきたことがきっかけです。ギリシャ神話やノルド神話は何度も触れてきたけれど、アフリカの神話はほとんど知らないことに気づいて、「もっと知りたい」という気持ちで勉強を始めました。</p>
+      <p>日本語の資料が少ないぶん、英語の文献や洋書を読む機会も自然と増えています。語学の勉強と神話の勉強が同時に進む感じが、なんだか面白い。</p>
+      <p>漫画とイラストを描くのが好きなので、学んだ神話をファンアートにして残していきたいと思っています。まだまだ勉強中ですが、のんびり更新していきます。</p>
+    </div>
+  </div>
+
+  <!-- リンク -->
+  <div class="section-label">✦ Links</div>
+  <div class="link-grid">
+
+    <a class="link-card" href="blog.html">
+      <div class="link-icon">📖</div>
+      <div class="link-text">
+        <span class="link-name">学習ログ</span>
+        <span class="link-desc">日々の勉強記録</span>
+      </div>
+      <span class="link-arrow">›</span>
+    </a>
+
+    <a class="link-card" href="gallery.html">
+      <div class="link-icon">🎨</div>
+      <div class="link-text">
+        <span class="link-name">ギャラリー</span>
+        <span class="link-desc">漫画・イラスト</span>
+      </div>
+      <span class="link-arrow">›</span>
+    </a>
+
+    <a class="link-card" href="https://bsky.app/" target="_blank" rel="noopener">
+      <div class="link-icon">🦋</div>
+      <div class="link-text">
+        <span class="link-name">Bluesky</span>
+        <span class="link-desc">近況・お知らせ</span>
+      </div>
+      <span class="link-arrow">›</span>
+    </a>
+
+    <a class="link-card" href="https://azaleacreativeroom888.github.io/" target="_blank" rel="noopener">
+      <div class="link-icon">🌸</div>
+      <div class="link-text">
+        <span class="link-name">メインサイト</span>
+        <span class="link-desc">Azalea Creative Room</span>
+      </div>
+      <span class="link-arrow">›</span>
+    </a>
+
+  </div>
+
+  <!-- コンタクト -->
+  <div class="section-label">✦ Contact</div>
+  <div class="form-card">
+    <p class="form-intro">ご質問・ご感想などあればお気軽にどうぞ。</p>
+
+    <div class="form-success" id="form-success">
+      ✉️ メッセージを送信しました。ありがとうございます！
+    </div>
+
+    <form id="contact-form" action="https://formspree.io/f/maqvpvoz" method="POST">
+      <div class="form-group">
+        <label class="form-label" for="name">お名前</label>
+        <input class="form-input" type="text" id="name" name="name" placeholder="お名前">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="email">メールアドレス<span class="required">*</span></label>
+        <input class="form-input" type="email" id="email" name="email" placeholder="example@email.com" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="message">メッセージ<span class="required">*</span></label>
+        <textarea class="form-textarea" id="message" name="message" placeholder="メッセージをどうぞ…" required></textarea>
+      </div>
+      <button class="form-submit" type="submit">📮 送信する</button>
+    </form>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-title">🌍 SAVANNA MYTHS</div>
+    <div class="footer-nav">
+      <a href="index.html">HOME</a>
+      <a href="blog.html">BLOG</a>
+      <a href="gallery.html">GALLERY</a>
+      <a href="about.html">ABOUT</a>
+    </div>
+    <div class="footer-copy">© 2025 SAVANNA MYTHS — Fan Site / 非公式ファンサイト</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('contact-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = this.querySelector('.form-submit');
+    btn.disabled = true;
+    btn.textContent = '送信中…';
+    try {
+      const res = await fetch(this.action, {
+        method: 'POST',
+        body: new FormData(this),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        document.getElementById('form-success').style.display = 'block';
+        this.reset();
+      }
+    } catch(err) {}
+    btn.disabled = false;
+    btn.innerHTML = '📮 送信する';
+  });
+</script>
+
+</body>
+</html>
