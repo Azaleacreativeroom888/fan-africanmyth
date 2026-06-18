@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAVANNA MYTHS — アフリカ神話の世界</title>
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Lato:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:        #0F2318;
+      --panel:     #1A3A2A;
+      --panel2:    #224030;
+      --green:     #2D6A4F;
+      --amber:     #E8A020;
+      --amber2:    #F5C842;
+      --cream:     #F5E6C8;
+      --terra:     #C1440E;
+      --terra2:    #E05520;
+      --text:      #F0E8D0;
+      --muted:     #A8C4A0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Lato', 'Noto Sans JP', sans-serif;
+      line-height: 1.7;
+    }
+
+    /* ── 幾何学パターン（シグネチャー） ── */
+    .geo-pattern {
+      background-image:
+        repeating-linear-gradient(
+          60deg,
+          transparent,
+          transparent 18px,
+          rgba(232,160,32,0.10) 18px,
+          rgba(232,160,32,0.10) 20px
+        ),
+        repeating-linear-gradient(
+          -60deg,
+          transparent,
+          transparent 18px,
+          rgba(232,160,32,0.10) 18px,
+          rgba(232,160,32,0.10) 20px
+        ),
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 34px,
+          rgba(45,106,79,0.18) 34px,
+          rgba(45,106,79,0.18) 36px
+        );
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: relative;
+      background: var(--panel);
+      border-bottom: 3px solid var(--amber);
+      overflow: hidden;
+    }
+
+    .header-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 32px 24px 28px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .site-eyebrow {
+      font-family: 'Righteous', sans-serif;
+      font-size: 11px;
+      letter-spacing: 4px;
+      color: var(--amber);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .site-title {
+      font-family: 'Righteous', sans-serif;
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      color: var(--amber);
+      line-height: 1.1;
+      letter-spacing: 2px;
+      text-shadow: 3px 3px 0 rgba(0,0,0,0.4);
+    }
+
+    .site-title span {
+      color: var(--cream);
+    }
+
+    .site-tagline {
+      margin-top: 10px;
+      font-size: 0.95rem;
+      color: var(--muted);
+      letter-spacing: 0.5px;
+    }
+
+    /* 装飾：右側に大きなシルエット的な太陽 */
+    .header-deco {
+      position: absolute;
+      right: -30px;
+      top: -30px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,160,32,0.18) 0%, transparent 70%);
+      z-index: 1;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--bg);
+      border-bottom: 2px solid var(--green);
+    }
+
+    .nav-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      display: inline-block;
+      padding: 14px 20px;
+      color: var(--cream);
+      text-decoration: none;
+      font-family: 'Righteous', sans-serif;
+      font-size: 0.92rem;
+      letter-spacing: 1px;
+      transition: color 0.2s, background 0.2s;
+      border-bottom: 3px solid transparent;
+    }
+
+    nav a:hover, nav a.active {
+      color: var(--amber);
+      border-bottom-color: var(--amber);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--panel) 0%, #0d2015 100%);
+      padding: 64px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          60deg,
+          transparent,
+          transparent 22px,
+          rgba(232,160,32,0.07) 22px,
+          rgba(232,160,32,0.07) 24px
+        ),
+        repeating-linear-gradient(
+          -60deg,
+          transparent,
+          transparent 22px,
+          rgba(232,160,32,0.07) 22px,
+          rgba(232,160,32,0.07) 24px
+        );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .hero-label {
+      display: inline-block;
+      background: var(--terra);
+      color: #fff;
+      font-family: 'Righteous', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 3px;
+      padding: 5px 16px;
+      border-radius: 2px;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+
+    .hero h2 {
+      font-family: 'Righteous', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--cream);
+      line-height: 1.3;
+      margin-bottom: 18px;
+    }
+
+    .hero h2 em {
+      font-style: normal;
+      color: var(--amber);
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 500px;
+      margin: 0 auto 32px;
+    }
+
+    .hero-animals {
+      font-size: 2rem;
+      letter-spacing: 12px;
+      margin-bottom: 32px;
+      opacity: 0.8;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--amber);
+      color: var(--bg);
+      font-family: 'Righteous', sans-serif;
+      font-size: 0.95rem;
+      padding: 13px 32px;
+      border-radius: 3px;
+      text-decoration: none;
+      letter-spacing: 1.5px;
+      transition: background 0.2s, transform 0.15s;
+      box-shadow: 0 4px 16px rgba(232,160,32,0.3);
+    }
+
+    .btn-primary:hover {
+      background: var(--amber2);
+      transform: translateY(-2px);
+    }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 56px 24px;
+    }
+
+    .section-label {
+      font-family: 'Righteous', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 4px;
+      color: var(--amber);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-family: 'Righteous', sans-serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      color: var(--cream);
+      margin-bottom: 28px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--green);
+    }
+
+    /* ── ABOUT STRIP ── */
+    .about-strip {
+      background: var(--panel);
+      border: 1px solid var(--green);
+      border-left: 5px solid var(--amber);
+      border-radius: 4px;
+      padding: 28px 32px;
+      margin-bottom: 56px;
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    .about-icon {
+      font-size: 2.8rem;
+      flex-shrink: 0;
+    }
+
+    .about-strip h3 {
+      font-family: 'Righteous', sans-serif;
+      color: var(--amber);
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    .about-strip p {
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    /* ── MYTH CARDS ── */
+    .myths-section {
+      margin-bottom: 56px;
+    }
+
+    .myth-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .myth-card {
+      background: var(--panel);
+      border: 1px solid var(--green);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .myth-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--amber);
+    }
+
+    .card-banner {
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-banner::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 8px,
+          rgba(0,0,0,0.12) 8px,
+          rgba(0,0,0,0.12) 10px
+        );
+    }
+
+    .banner-yoruba  { background: linear-gradient(135deg, #1e4d35, #2D6A4F); }
+    .banner-bantu   { background: linear-gradient(135deg, #3d2400, #7a4a00); }
+    .banner-egyptian{ background: linear-gradient(135deg, #1a2440, #2a3d6a); }
+    .banner-west    { background: linear-gradient(135deg, #3d1a00, #8a3a00); }
+
+    .card-body {
+      padding: 20px;
+    }
+
+    .card-region {
+      font-size: 0.75rem;
+      color: var(--amber);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      font-family: 'Righteous', sans-serif;
+    }
+
+    .card-name {
+      font-family: 'Righteous', sans-serif;
+      font-size: 1.2rem;
+      color: var(--cream);
+      margin-bottom: 8px;
+    }
+
+    .card-desc {
+      font-size: 0.87rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── RECENT POSTS ── */
+    .posts-section {
+      margin-bottom: 56px;
+    }
+
+    .post-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .post-item {
+      background: var(--panel2);
+      border: 1px solid var(--green);
+      border-radius: 4px;
+      padding: 20px 24px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      transition: border-color 0.2s;
+    }
+
+    .post-item:hover {
+      border-color: var(--amber);
+    }
+
+    .post-date {
+      font-family: 'Righteous', sans-serif;
+      font-size: 0.8rem;
+      color: var(--amber);
+      letter-spacing: 1px;
+      flex-shrink: 0;
+      padding-top: 2px;
+      min-width: 90px;
+    }
+
+    .post-content h4 {
+      font-family: 'Righteous', sans-serif;
+      color: var(--cream);
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+
+    .post-content p {
+      font-size: 0.87rem;
+      color: var(--muted);
+    }
+
+    .post-tag {
+      display: inline-block;
+      background: var(--green);
+      color: var(--amber);
+      font-size: 0.72rem;
+      padding: 2px 10px;
+      border-radius: 20px;
+      margin-bottom: 8px;
+      font-family: 'Righteous', sans-serif;
+      letter-spacing: 1px;
+    }
+
+    /* ── GALLERY PREVIEW ── */
+    .gallery-preview {
+      margin-bottom: 56px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .gallery-thumb {
+      background: var(--panel);
+      border: 1px solid var(--green);
+      border-radius: 3px;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      transition: border-color 0.2s, transform 0.2s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gallery-thumb::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--geo-pattern, linear-gradient(135deg, var(--panel) 0%, var(--panel2) 100%));
+    }
+
+    .gallery-thumb span {
+      position: relative;
+      z-index: 2;
+    }
+
+    .gallery-thumb:hover {
+      border-color: var(--amber);
+      transform: scale(1.03);
+    }
+
+    .gallery-link {
+      display: inline-block;
+      color: var(--amber);
+      text-decoration: none;
+      font-family: 'Righteous', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      border-bottom: 1px solid var(--amber);
+      padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+
+    .gallery-link:hover {
+      color: var(--amber2);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--panel);
+      border-top: 2px solid var(--green);
+      padding: 32px 24px;
+      text-align: center;
+    }
+
+    .footer-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .footer-title {
+      font-family: 'Righteous', sans-serif;
+      color: var(--amber);
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    .footer-nav {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .footer-nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.87rem;
+      transition: color 0.2s;
+    }
+
+    .footer-nav a:hover {
+      color: var(--amber);
+    }
+
+    .footer-copy {
+      color: var(--green);
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 600px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-strip { flex-direction: column; }
+      .post-item { flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="geo-pattern">
+  <div class="header-deco"></div>
+  <div class="header-inner">
+    <div class="site-eyebrow">🌍 African Mythology Fan Site</div>
+    <div class="site-title">SAVANNA<span> MYTHS</span></div>
+    <div class="site-tagline">アフリカの神々と物語を巡る旅 🦁</div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="active">🏠 HOME</a>
+    <a href="blog.html">📖 BLOG</a>
+    <a href="gallery.html">🎨 GALLERY</a>
+    <a href="about.html">🌿 ABOUT</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-label">✦ Welcome ✦</div>
+    <h2>大地が生まれた日、<em>神々は踊った</em></h2>
+    <p>ヨルバ、バントゥー、ズールー——アフリカ各地に息づく神話と伝説を、ファンとして学び・描き・語るサイトです。</p>
+    <div class="hero-animals">🦒🌅🦅🐘🌿</div>
+    <a href="blog.html" class="btn-primary">学習ログを読む →</a>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main>
+
+  <!-- ABOUT STRIP -->
+  <div class="about-strip">
+    <div class="about-icon">🌳</div>
+    <div>
+      <h3>このサイトについて</h3>
+      <p>アフリカ神話の勉強記録、ファンアート、考察などをのんびり更新しています。まだまだ勉強中ですが、神話の多様性と豊かさをもっと知りたい！という気持ちで運営中です。</p>
+    </div>
+  </div>
+
+  <!-- MYTH CARDS -->
+  <section class="myths-section">
+    <div class="section-label">✦ Explore</div>
+    <h2 class="section-title">気になる神話の地域</h2>
+    <div class="myth-grid">
+
+      <a class="myth-card" href="#">
+        <div class="card-banner banner-yoruba">🌩️</div>
+        <div class="card-body">
+          <div class="card-region">West Africa</div>
+          <div class="card-name">ヨルバ神話</div>
+          <p class="card-desc">オリシャ（神々）が住む天界と、人間世界の物語。シャンゴの雷、オグンの鉄、オシュンの愛と川。</p>
+        </div>
+      </a>
+
+      <a class="myth-card" href="#">
+        <div class="card-banner banner-bantu">🌾</div>
+        <div class="card-body">
+          <div class="card-region">Central / Southern Africa</div>
+          <div class="card-name">バントゥー神話</div>
+          <p class="card-desc">大地の精霊と祖先崇拝が息づく物語群。ンクルンクルの創造神話、ズールーの英雄伝説。</p>
+        </div>
+      </a>
+
+      <a class="myth-card" href="#">
+        <div class="card-banner banner-egyptian">⭐</div>
+        <div class="card-body">
+          <div class="card-region">North Africa</div>
+          <div class="card-name">エジプト神話</div>
+          <p class="card-desc">ラー、オシリス、イシス——尽きることなく掘り下げたい、壮大な神々のドラマ。</p>
+        </div>
+      </a>
+
+      <a class="myth-card" href="#">
+        <div class="card-banner banner-west">🥁</div>
+        <div class="card-body">
+          <div class="card-region">West Africa</div>
+          <div class="card-name">アシャンティ神話</div>
+          <p class="card-desc">クワメ・アニャンコポン（天神）とアナンシ（蜘蛛の知恵者）。トリックスターの物語。</p>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- RECENT BLOG -->
+  <section class="posts-section">
+    <div class="section-label">✦ Recent</div>
+    <h2 class="section-title">最近の学習ログ</h2>
+    <div class="post-list">
+
+      <div class="post-item">
+        <div class="post-date">2025.06.10</div>
+        <div class="post-content">
+          <div class="post-tag">ヨルバ神話</div>
+          <h4>シャンゴの二丁斧について調べた</h4>
+          <p>雷神シャンゴのシンボル「オシェ」（双頭の斧）の意味と、彼の妻オヤとの関係が面白かった。</p>
+        </div>
+      </div>
+
+      <div class="post-item">
+        <div class="post-date">2025.06.05</div>
+        <div class="post-content">
+          <div class="post-tag">バントゥー神話</div>
+          <h4>アフリカの創世神話まとめを読んだ</h4>
+          <p>地域ごとに全然違う創世の語り方があって、どれも独自の世界観を持っていることに感動した。</p>
+        </div>
+      </div>
+
+      <div class="post-item">
+        <div class="post-date">2025.05.28</div>
+        <div class="post-content">
+          <div class="post-tag">アナンシ</div>
+          <h4>蜘蛛のアナンシがトリックスターである理由</h4>
+          <p>強くない者が知恵で世界を動かす、という構造が好き。漫画のキャラにも活かせそう。</p>
+        </div>
+      </div>
+
+    </div>
+    <div style="margin-top: 20px;">
+      <a href="blog.html" class="gallery-link">すべての学習ログを見る →</a>
+    </div>
+  </section>
+
+  <!-- GALLERY PREVIEW -->
+  <section class="gallery-preview">
+    <div class="section-label">✦ Gallery</div>
+    <h2 class="section-title">ファンアート</h2>
+    <div class="gallery-grid">
+      <div class="gallery-thumb"><span>🌩️</span></div>
+      <div class="gallery-thumb"><span>🦁</span></div>
+      <div class="gallery-thumb"><span>🕷️</span></div>
+      <div class="gallery-thumb"><span>🌊</span></div>
+    </div>
+    <a href="gallery.html" class="gallery-link">ギャラリーを見る →</a>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-title">🌍 SAVANNA MYTHS</div>
+    <div class="footer-nav">
+      <a href="index.html">HOME</a>
+      <a href="blog.html">BLOG</a>
+      <a href="gallery.html">GALLERY</a>
+      <a href="about.html">ABOUT</a>
+    </div>
+    <div class="footer-copy">© 2025 SAVANNA MYTHS — Fan Site / 非公式ファンサイト</div>
+  </div>
+</footer>
+
+</body>
+</html>
