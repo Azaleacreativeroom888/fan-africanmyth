@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GALLERY — SAVANNA MYTHS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Lato:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #0F2318;
+      --panel:   #1A3A2A;
+      --panel2:  #224030;
+      --green:   #2D6A4F;
+      --amber:   #E8A020;
+      --amber2:  #F5C842;
+      --cream:   #F5E6C8;
+      --terra:   #C1440E;
+      --text:    #F0E8D0;
+      --muted:   #A8C4A0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Lato', 'Noto Sans JP', sans-serif;
+      line-height: 1.7;
+    }
+
+    .geo-pattern {
+      background-image:
+        repeating-linear-gradient(60deg, transparent, transparent 18px, rgba(232,160,32,0.10) 18px, rgba(232,160,32,0.10) 20px),
+        repeating-linear-gradient(-60deg, transparent, transparent 18px, rgba(232,160,32,0.10) 18px, rgba(232,160,32,0.10) 20px),
+        repeating-linear-gradient(0deg, transparent, transparent 34px, rgba(45,106,79,0.18) 34px, rgba(45,106,79,0.18) 36px);
+    }
+
+    /* ── HEADER ── */
+    header { background: var(--panel); border-bottom: 3px solid var(--amber); position: relative; overflow: hidden; }
+    .header-inner { max-width: 1000px; margin: 0 auto; padding: 32px 24px 28px; position: relative; z-index: 2; }
+    .site-eyebrow { font-family: 'Righteous', sans-serif; font-size: 11px; letter-spacing: 4px; color: var(--amber); text-transform: uppercase; margin-bottom: 8px; }
+    .site-title { font-family: 'Righteous', sans-serif; font-size: clamp(2.4rem, 6vw, 4rem); color: var(--amber); line-height: 1.1; letter-spacing: 2px; text-shadow: 3px 3px 0 rgba(0,0,0,0.4); }
+    .site-title span { color: var(--cream); }
+    .site-tagline { margin-top: 10px; font-size: 0.95rem; color: var(--muted); }
+    .header-deco { position: absolute; right: -30px; top: -30px; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(232,160,32,0.18) 0%, transparent 70%); z-index: 1; }
+
+    /* ── NAV ── */
+    nav { background: var(--bg); border-bottom: 2px solid var(--green); }
+    .nav-inner { max-width: 1000px; margin: 0 auto; padding: 0 24px; display: flex; gap: 4px; flex-wrap: wrap; }
+    nav a { display: inline-block; padding: 14px 20px; color: var(--cream); text-decoration: none; font-family: 'Righteous', sans-serif; font-size: 0.92rem; letter-spacing: 1px; transition: color 0.2s; border-bottom: 3px solid transparent; }
+    nav a:hover, nav a.active { color: var(--amber); border-bottom-color: var(--amber); }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      background: linear-gradient(135deg, var(--panel) 0%, #0d2015 100%);
+      padding: 40px 24px;
+      border-bottom: 1px solid var(--green);
+    }
+    .page-hero-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+    .page-label { display: inline-block; background: var(--terra); color: #fff; font-family: 'Righteous', sans-serif; font-size: 0.75rem; letter-spacing: 3px; padding: 4px 14px; border-radius: 2px; margin-bottom: 16px; text-transform: uppercase; }
+    .page-hero h1 { font-family: 'Righteous', sans-serif; font-size: clamp(1.6rem, 4vw, 2.4rem); color: var(--cream); margin-bottom: 10px; }
+    .page-hero p { color: var(--muted); font-size: 0.92rem; }
+
+    /* ── FILTER BAR ── */
+    .filter-bar {
+      max-width: 1000px;
+      margin: 36px auto 0;
+      padding: 0 24px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .filter-label {
+      font-family: 'Righteous', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 2px;
+      color: var(--amber);
+      text-transform: uppercase;
+      margin-right: 4px;
+    }
+    .filter-btn {
+      background: var(--panel);
+      border: 1px solid var(--green);
+      color: var(--muted);
+      font-family: 'Righteous', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 1px;
+      padding: 6px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .filter-btn:hover { border-color: var(--amber); color: var(--amber); }
+    .filter-btn.active { background: var(--amber); color: var(--bg); border-color: var(--amber); }
+
+    /* ── GALLERY GRID ── */
+    .gallery-wrap {
+      max-width: 1000px;
+      margin: 28px auto 64px;
+      padding: 0 24px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    /* カード */
+    .gallery-card {
+      background: var(--panel);
+      border: 1px solid var(--green);
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+    .gallery-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--amber);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .gallery-card[data-type="manga"] { display: block; }
+    .gallery-card[data-type="illust"] { display: block; }
+    .gallery-card.hidden { display: none; }
+
+    /* サムネイルエリア */
+    .card-thumb {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 各カードの背景カラー */
+    .thumb-1 { background: linear-gradient(135deg, #1e4d35 0%, #0d2015 100%); }
+    .thumb-2 { background: linear-gradient(135deg, #3d2400 0%, #1a0f00 100%); }
+    .thumb-3 { background: linear-gradient(135deg, #1a2440 0%, #0a0f1e 100%); }
+    .thumb-4 { background: linear-gradient(135deg, #2a1a00 0%, #3d2800 100%); }
+    .thumb-5 { background: linear-gradient(135deg, #1e3a20 0%, #0f2010 100%); }
+    .thumb-6 { background: linear-gradient(135deg, #3d1a1a 0%, #1e0a0a 100%); }
+    .thumb-7 { background: linear-gradient(135deg, #1a2e3d 0%, #0a1520 100%); }
+    .thumb-8 { background: linear-gradient(135deg, #2d1a3d 0%, #150a20 100%); }
+    .thumb-9 { background: linear-gradient(135deg, #1e3a1a 0%, #0a1e08 100%); }
+
+    /* 幾何学オーバーレイ */
+    .card-thumb::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(60deg, transparent, transparent 14px, rgba(232,160,32,0.07) 14px, rgba(232,160,32,0.07) 15px),
+        repeating-linear-gradient(-60deg, transparent, transparent 14px, rgba(232,160,32,0.07) 14px, rgba(232,160,32,0.07) 15px);
+      pointer-events: none;
+    }
+
+    .card-thumb .emoji {
+      position: relative;
+      z-index: 2;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+    }
+
+    /* タイプバッジ */
+    .type-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 3;
+      font-family: 'Righteous', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 1.5px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+    }
+    .badge-manga { background: var(--terra); color: #fff; }
+    .badge-illust { background: var(--green); color: var(--amber); }
+
+    /* カード情報 */
+    .card-info {
+      padding: 14px 16px;
+    }
+    .card-tag {
+      font-size: 0.72rem;
+      color: var(--amber);
+      font-family: 'Righteous', sans-serif;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .card-title {
+      font-family: 'Righteous', sans-serif;
+      font-size: 0.95rem;
+      color: var(--cream);
+      margin-bottom: 4px;
+    }
+    .card-date {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .lightbox.open { display: flex; }
+
+    .lightbox-inner {
+      background: var(--panel);
+      border: 1px solid var(--amber);
+      border-radius: 6px;
+      max-width: 560px;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      animation: lb-in 0.2s ease;
+    }
+    @keyframes lb-in {
+      from { opacity: 0; transform: scale(0.95); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    .lb-thumb {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 7rem;
+      position: relative;
+    }
+    .lb-thumb::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(60deg, transparent, transparent 18px, rgba(232,160,32,0.08) 18px, rgba(232,160,32,0.08) 20px),
+        repeating-linear-gradient(-60deg, transparent, transparent 18px, rgba(232,160,32,0.08) 18px, rgba(232,160,32,0.08) 20px);
+    }
+    .lb-thumb .emoji { position: relative; z-index: 2; }
+
+    .lb-body { padding: 20px 24px 24px; }
+    .lb-tag { font-family: 'Righteous', sans-serif; font-size: 0.75rem; letter-spacing: 2px; color: var(--amber); text-transform: uppercase; margin-bottom: 6px; }
+    .lb-title { font-family: 'Righteous', sans-serif; font-size: 1.3rem; color: var(--cream); margin-bottom: 10px; }
+    .lb-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-bottom: 14px; }
+    .lb-meta { font-size: 0.78rem; color: var(--green); font-family: 'Righteous', sans-serif; letter-spacing: 1px; }
+
+    .lb-close {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid var(--green);
+      color: var(--cream);
+      font-size: 1.1rem;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s, color 0.2s;
+      z-index: 10;
+    }
+    .lb-close:hover { border-color: var(--amber); color: var(--amber); }
+
+    /* 空状態 */
+    .empty-state {
+      text-align: center;
+      padding: 60px 24px;
+      display: none;
+    }
+    .empty-state.show { display: block; }
+    .empty-state .emoji { font-size: 3rem; margin-bottom: 16px; }
+    .empty-state p { color: var(--muted); font-size: 0.9rem; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--panel); border-top: 2px solid var(--green); padding: 32px 24px; text-align: center; }
+    .footer-inner { max-width: 1000px; margin: 0 auto; }
+    .footer-title { font-family: 'Righteous', sans-serif; color: var(--amber); font-size: 1.1rem; margin-bottom: 8px; }
+    .footer-nav { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
+    .footer-nav a { color: var(--muted); text-decoration: none; font-size: 0.87rem; transition: color 0.2s; }
+    .footer-nav a:hover { color: var(--amber); }
+    .footer-copy { color: var(--green); font-size: 0.8rem; }
+
+    @media (max-width: 640px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 380px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="geo-pattern">
+  <div class="header-deco"></div>
+  <div class="header-inner">
+    <div class="site-eyebrow">🌍 African Mythology Fan Site</div>
+    <div class="site-title">SAVANNA<span> MYTHS</span></div>
+    <div class="site-tagline">アフリカの神々と物語を巡る旅 🦁</div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html">🏠 HOME</a>
+    <a href="blog.html">📖 BLOG</a>
+    <a href="gallery.html" class="active">🎨 GALLERY</a>
+    <a href="about.html">🌿 ABOUT</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-label">🎨 Gallery</div>
+    <h1>ギャラリー</h1>
+    <p>アフリカ神話をテーマに描いた漫画・イラストをまとめています。</p>
+  </div>
+</section>
+
+<!-- FILTER -->
+<div class="filter-bar">
+  <span class="filter-label">Filter :</span>
+  <button class="filter-btn active" data-filter="all">すべて</button>
+  <button class="filter-btn" data-filter="manga">漫画</button>
+  <button class="filter-btn" data-filter="illust">イラスト</button>
+</div>
+
+<!-- GALLERY -->
+<div class="gallery-wrap">
+  <div class="gallery-grid" id="galleryGrid">
+
+    <div class="gallery-card" data-type="illust"
+      data-emoji="🌩️" data-bg="thumb-1"
+      data-tag="ヨルバ神話" data-title="シャンゴの嵐"
+      data-desc="雷神シャンゴを描いたイラスト。双頭の斧「オシェ」と稲妻を持つ姿をイメージしました。赤と黒がシャンゴの聖なる色。"
+      data-date="2025.06.12" data-badgetype="illust">
+      <div class="card-thumb thumb-1">
+        <span class="type-badge badge-illust">Illust</span>
+        <span class="emoji">🌩️</span>
+      </div>
+      <div class="card-info">
+        <div class="card-tag">ヨルバ神話</div>
+        <div class="card-title">シャンゴの嵐</div>
+        <div class="card-date">2025.06.12</div>
+      </div>
+    </div>
+
+    <div class="gallery-card" data-type="manga"
+      data-emoji="🕷️" data-bg="thumb-2"
+      data-tag="アシャンティ神話" data-title="アナンシと物語の王"
+      data-desc="蜘蛛のアナンシが空の神オニャンコポンから「すべての物語」を買い取る場面を漫画にしました。全4ページ。"
+      data-date="2025.06.01" data-badgetype="manga">
+      <div class="card-thumb thumb-2">
+        <span class="type-badge badge-manga">Manga</span>
+        <span class="emoji">🕷️</span>
+      </div>
+      <div class="card-info">
+        <div class="card-tag">アシャンティ神話</div>
+        <div class="card-title">アナンシと物語の王</div>
+        <div class="card-date">2025.06.01</div>
+      </div>
+    </div>
+
+    <div class="gallery-card" data-type="illust"
+      data-emoji="⭐" data-bg="thumb-3"
+      data-tag="エジプト神話" data-title="マアトの羽根"
+      data-desc="死者の心臓をマアトの羽根と天秤にかけるシーン。アヌビスが見守る構図でスケッチしました。"
+      data-date="2025.05.25" data-badgetype="illust">
+      <div class="card-thumb thumb-3">
+        <span class="type-badge badge-illust">Illust</span>
+        <span class="emoji">⭐</span>
+      </div>
+      <div class="card-info">
+        <div class="card-tag">エジプト神話</div>
+        <div class="card-title">マアトの羽根</div>
+        <div class="card-date">2025.05.25</div>
+      </div>
+    </div>
+
+    <div class="gallery-card" data-type="manga"
+      data-emoji="🌾" data-bg="thumb-4"
+      data-tag="バントゥー神話" data-title="大地から来た者たち"
+      data-desc="バントゥー神話の「人間が地下から這い出てくる」創世のイメージを漫画に。無言のページが多めの実験的な構成。全6ページ。"
+      data-date="2025.05.18" data-badgetype="manga">
+      <div class="card-thumb thumb-4">
+        <span class="type-badge badge-manga">Manga</span>
+        <span class="emoji">🌾</span>
+      </div>
+      <div class="card-info">
+        <div class="card-tag">バントゥー神話</div>
+        <div class="card-title">大地から来た者たち</div>
+        <div class="card-date">2025.05.18</div>
+      </div>
+    </div>
+
+    <div class="gallery-card" data-type="illust"
+      data-emoji="🌊" data-bg="thumb-5"
+      data-tag="ヨルバ神話" data-title="オシュンの川"
+      data-desc="愛と川のオリシャ、オシュン。金色の扇と流れる川のイメージでまとめました。シャンゴの妻たちの中で一番好きかもしれない。"
+      data-date="2025.05.10" data-badgetype="illust">
+      <div class="card-thumb thumb-5">
+        <span class="type-badge badge-illust">Illust</span>
+        <span class="emoji">🌊</span>
+      </div>
+      <div class="card-info">
+        <div class="card-tag">ヨルバ神話</div>
+        <div class="card-title">オシュンの川</div>
+        <div class="card-date">2025.05.10</div>
+      </div>
+    </div>
+
+    <div class="gallery-card" data-type="illust"
+      data-emoji="🦅" data-bg="thumb-6"
+      data-tag="ズールー神話" data-title="ウンクルンクル"
+      data-desc="ズールーの創造神、ウンクルンクル。葦の茂みの中から世界を作り出す神を、抽象的なシルエットで表現しました。"
+      data-date="2025.05.03" data-badgetype="illust">
+      <div class="card-thumb thumb-6">
+        <span class="type-badge badge-illust">Illust</span>
+        <span class="emoji">🦅</span>
+      </div>
+      <div class="card-info">
+        <div class="card-tag">ズールー神話</div>
+        <div class="card-title">ウンクルンクル</div>
+        <div class="card-date">2025.05.03</div>
+      </div>
+    </div>
+
+    <div class="gallery-card" data-type="manga"
+      data-emoji="⚔️" data-bg="thumb-7"
+      data-tag="エジプト神話" data-title="ホルスとセト"
+      data-desc="秩序と混沌の戦い——でも単純な善悪じゃないよ、という読後感を意識して描きました。全8ページ。セトを格好よく描きたかった。"
+      data-date="2025.04.22" data-badgetype="manga">
+      <div class="card-thumb thumb-7">
+        <span class="type-badge badge-manga">Manga</span>
+        <span class="emoji">⚔️</span>
+      </div>
+      <div class="card-info">
+        <div class="card-tag">エジプト神話</div>
+        <div class="card-title">ホルスとセト</div>
+        <div class="card-date">2025.04.22</div>
+      </div>
+    </div>
+
+    <div class="gallery-card" data-type="illust"
+      data-emoji="🔥" data-bg="thumb-8"
+      data-tag="ヨルバ神話" data-title="オグンの鉄"
+      data-desc="戦争と鉄と狩りの神、オグン。鍛冶のイメージと荒ぶる力を合わせて描いたラフイラスト。いつか完成版も描きたい。"
+      data-date="2025.04.10" data-badgetype="illust">
+      <div class="card-thumb thumb-8">
+        <span class="type-badge badge-illust">Illust</span>
+        <span class="emoji">🔥</span>
+      </div>
+      <div class="card-info">
+        <div class="card-tag">ヨルバ神話</div>
+        <div class="card-title">オグンの鉄</div>
+        <div class="card-date">2025.04.10</div>
+      </div>
+    </div>
+
+    <div class="gallery-card" data-type="illust"
+      data-emoji="🌿" data-bg="thumb-9"
+      data-tag="全般" data-title="サバンナの夕暮れ"
+      data-desc="特定の神話というわけではなく、アフリカのサバンナのイメージで描いた風景イラスト。神話勉強を始めたての頃の一枚。"
+      data-date="2025.04.01" data-badgetype="illust">
+      <div class="card-thumb thumb-9">
+        <span class="type-badge badge-illust">Illust</span>
+        <span class="emoji">🌿</span>
+      </div>
+      <div class="card-info">
+        <div class="card-tag">全般</div>
+        <div class="card-title">サバンナの夕暮れ</div>
+        <div class="card-date">2025.04.01</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 空状態 -->
+  <div class="empty-state" id="emptyState">
+    <div class="emoji">🌿</div>
+    <p>該当する作品がありません</p>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-inner">
+    <button class="lb-close" id="lbClose">✕</button>
+    <div class="lb-thumb" id="lbThumb">
+      <span class="emoji" id="lbEmoji"></span>
+    </div>
+    <div class="lb-body">
+      <div class="lb-tag" id="lbTag"></div>
+      <div class="lb-title" id="lbTitle"></div>
+      <div class="lb-desc" id="lbDesc"></div>
+      <div class="lb-meta" id="lbMeta"></div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-title">🌍 SAVANNA MYTHS</div>
+    <div class="footer-nav">
+      <a href="index.html">HOME</a>
+      <a href="blog.html">BLOG</a>
+      <a href="gallery.html">GALLERY</a>
+      <a href="about.html">ABOUT</a>
+    </div>
+    <div class="footer-copy">© 2025 SAVANNA MYTHS — Fan Site / 非公式ファンサイト</div>
+  </div>
+</footer>
+
+<script>
+  // ── フィルター ──
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.gallery-card');
+  const emptyState = document.getElementById('emptyState');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      let visible = 0;
+      cards.forEach(card => {
+        const match = filter === 'all' || card.dataset.type === filter;
+        card.classList.toggle('hidden', !match);
+        if (match) visible++;
+      });
+      emptyState.classList.toggle('show', visible === 0);
+    });
+  });
+
+  // ── ライトボックス ──
+  const lightbox = document.getElementById('lightbox');
+  const lbClose  = document.getElementById('lbClose');
+  const lbThumb  = document.getElementById('lbThumb');
+  const lbEmoji  = document.getElementById('lbEmoji');
+  const lbTag    = document.getElementById('lbTag');
+  const lbTitle  = document.getElementById('lbTitle');
+  const lbDesc   = document.getElementById('lbDesc');
+  const lbMeta   = document.getElementById('lbMeta');
+
+  // 背景クラスのリスト
+  const thumbClasses = ['thumb-1','thumb-2','thumb-3','thumb-4','thumb-5','thumb-6','thumb-7','thumb-8','thumb-9'];
+
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      // 背景クラスをセット
+      thumbClasses.forEach(c => lbThumb.classList.remove(c));
+      lbThumb.classList.add(card.dataset.bg);
+
+      lbEmoji.textContent = card.dataset.emoji;
+      lbTag.textContent   = card.dataset.tag;
+      lbTitle.textContent = card.dataset.title;
+      lbDesc.textContent  = card.dataset.desc;
+      lbMeta.textContent  = card.dataset.date + ' ／ ' + (card.dataset.badgetype === 'manga' ? '漫画' : 'イラスト');
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  lbClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', e => {
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightbox();
+  });
+</script>
+
+</body>
+</html>
