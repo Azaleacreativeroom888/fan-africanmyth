@@ -296,6 +296,80 @@
     .footer-nav a:hover { color: var(--amber); }
     .footer-copy { color: var(--green); font-size: 0.8rem; }
 
+    /* ── REPORT LINK BOX ── */
+    .report-box {
+      background: var(--panel);
+      border: 1px solid var(--amber);
+      border-radius: 4px;
+      margin-bottom: 32px;
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+    .report-box:hover {
+      box-shadow: 0 6px 24px rgba(232,160,32,0.18);
+    }
+    .report-box-inner {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 20px 24px;
+      text-decoration: none;
+      color: inherit;
+    }
+    .report-icon {
+      font-size: 2.4rem;
+      width: 60px;
+      height: 60px;
+      background: var(--panel2);
+      border: 1px solid var(--green);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .report-icon::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(60deg, transparent, transparent 8px, rgba(232,160,32,0.08) 8px, rgba(232,160,32,0.08) 9px),
+        repeating-linear-gradient(-60deg, transparent, transparent 8px, rgba(232,160,32,0.08) 8px, rgba(232,160,32,0.08) 9px);
+    }
+    .report-icon span { position: relative; z-index: 2; }
+    .report-text { flex: 1; min-width: 0; }
+    .report-eyebrow {
+      font-family: 'Righteous', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      color: var(--amber);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .report-title {
+      font-family: 'Righteous', sans-serif;
+      font-size: 1.05rem;
+      color: var(--cream);
+      margin-bottom: 4px;
+    }
+    .report-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .report-arrow {
+      font-size: 1.4rem;
+      color: var(--amber);
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+    .report-box:hover .report-arrow { transform: translateX(4px); }
+    .report-box-bar {
+      background: var(--amber);
+      height: 3px;
+    }
+
     @media (max-width: 640px) {
       .gallery-grid { grid-template-columns: repeat(2, 1fr); }
     }
@@ -345,6 +419,21 @@
 
 <!-- GALLERY -->
 <div class="gallery-wrap">
+
+  <!-- REPORT LINK -->
+  <div class="report-box">
+    <div class="report-box-bar"></div>
+    <a class="report-box-inner" href="report1.html">
+      <div class="report-icon"><span>📋</span></div>
+      <div class="report-text">
+        <div class="report-eyebrow">✦ Special Report</div>
+        <div class="report-title">アフリカ神話の神一覧</div>
+        <div class="report-desc">ヨルバ・バントゥー・エジプト・アシャンティなど各地域の神々をまとめた特集ページ</div>
+      </div>
+      <div class="report-arrow">›</div>
+    </a>
+  </div>
+
   <div class="gallery-grid" id="galleryGrid">
 
     <div class="gallery-card" data-type="illust"
